@@ -1,0 +1,191 @@
+[
+  {
+    "year_ce": 570,
+    "year_ah": null,
+    "title": "Birth of Muhammad ﷺ",
+    "description": "Born in Mecca during the Year of the Elephant.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 576,
+    "year_ah": null,
+    "title": "Death of Amina",
+    "description": "Mother of the Prophet ﷺ passed away.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 578,
+    "year_ah": null,
+    "title": "Under Care of Abu Talib",
+    "description": "After Abdul Muttalib’s death, Prophet was raised by Abu Talib.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 595,
+    "year_ah": null,
+    "title": "Marriage to Khadijah",
+    "description": "Married Khadijah bint Khuwaylid RA at age 25.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 610,
+    "year_ah": null,
+    "title": "First Revelation",
+    "description": "Angel Jibril reveals first verses of the Qur’an at Cave Hira.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 613,
+    "year_ah": null,
+    "title": "Public Preaching Begins",
+    "description": "Prophet ﷺ openly calls people to Islam.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 615,
+    "year_ah": null,
+    "title": "Migration to Abyssinia",
+    "description": "First Muslim migration for protection under Christian king.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 616,
+    "year_ah": null,
+    "title": "Revelation: Surah Al-Fatiha",
+    "description": "The Opening chapter is revealed, essential in prayer.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 617,
+    "year_ah": null,
+    "title": "Boycott of Hashim Clan",
+    "description": "Quraysh isolate Prophet ﷺ and followers in valley.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 619,
+    "year_ah": null,
+    "title": "Year of Sorrow",
+    "description": "Khadijah RA and Abu Talib both pass away.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 620,
+    "year_ah": null,
+    "title": "Journey to Ta'if",
+    "description": "Prophet ﷺ seeks support in Ta’if, is rejected and attacked.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 621,
+    "year_ah": null,
+    "title": "First Pledge of Aqabah",
+    "description": "Men from Yathrib pledge allegiance to Islam.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 622,
+    "year_ah": 1,
+    "title": "Hijrah to Medina",
+    "description": "Migration and foundation of Islamic community.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 623,
+    "year_ah": 2,
+    "title": "Change of Qiblah",
+    "description": "Direction of prayer changed from Jerusalem to Mecca.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 624,
+    "year_ah": 2,
+    "title": "Battle of Badr",
+    "description": "First major battle; Muslims achieve victory.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 624,
+    "year_ah": 2,
+    "title": "Fasting in Ramadan Instituted",
+    "description": "Revelation commands fasting in the month of Ramadan.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 625,
+    "year_ah": 3,
+    "title": "Battle of Uhud",
+    "description": "Second major battle, Muslims experience loss.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 627,
+    "year_ah": 5,
+    "title": "Battle of the Trench",
+    "description": "Muslims defend Medina using trench strategy.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 628,
+    "year_ah": 6,
+    "title": "Treaty of Hudaybiyyah",
+    "description": "Peace treaty signed between Muslims and Quraysh.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 628,
+    "year_ah": 6,
+    "title": "Revelation: Victory Surah",
+    "description": "Surah al-Fath (Victory) is revealed.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 629,
+    "year_ah": 7,
+    "title": "First Umrah",
+    "description": "Prophet ﷺ performs Umrah as part of treaty agreement.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 630,
+    "year_ah": 8,
+    "title": "Conquest of Mecca",
+    "description": "Mecca is peacefully entered by Muslims.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 630,
+    "year_ah": 8,
+    "title": "Destruction of Idols",
+    "description": "Prophet ﷺ removes idols from the Ka'bah.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 631,
+    "year_ah": 9,
+    "title": "Delegations Year",
+    "description": "Many tribes enter Islam during this year.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 632,
+    "year_ah": 10,
+    "title": "Farewell Hajj",
+    "description": "Prophet ﷺ performs his only and final Hajj.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 632,
+    "year_ah": 10,
+    "title": "Last Sermon",
+    "description": "Delivered during the Farewell Hajj at Arafat.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 632,
+    "year_ah": 11,
+    "title": "Passing of Prophet ﷺ",
+    "description": "Prophet ﷺ dies in Medina.",
+    "importance": "major"
+  }
+]
