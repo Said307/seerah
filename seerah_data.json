@@ -1,0 +1,74 @@
+[
+  {
+    "year_ce": 570,
+    "title": "Birth of Muhammad ﷺ",
+    "description": "Born in Mecca during the Year of the Elephant.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 576,
+    "title": "Death of Amina",
+    "description": "Mother of Muhammad ﷺ passed away.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 595,
+    "title": "Marriage to Khadijah RA",
+    "description": "Married Khadijah, his first and most beloved wife.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 610,
+    "title": "First Revelation",
+    "description": "Angel Jibril revealed the first verses of the Qur'an.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 613,
+    "title": "Public Preaching Begins",
+    "description": "Islam is preached openly in Mecca.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 622,
+    "title": "Hijrah to Medina",
+    "description": "Migration to Medina and start of Islamic calendar (AH).",
+    "importance": "major"
+  },
+  {
+    "year_ce": 624,
+    "title": "Battle of Badr",
+    "description": "First major battle against Quraysh. Muslims victorious.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 627,
+    "title": "Battle of the Trench",
+    "description": "Medina defended against siege with strategic trench.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 628,
+    "title": "Treaty of Hudaybiyyah",
+    "description": "Peace treaty signed with the Quraysh.",
+    "importance": "minor"
+  },
+  {
+    "year_ce": 630,
+    "title": "Conquest of Mecca",
+    "description": "Mecca re-entered peacefully by Muslims.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 632,
+    "title": "Farewell Pilgrimage",
+    "description": "Final sermon delivered at Mount Arafat.",
+    "importance": "major"
+  },
+  {
+    "year_ce": 632,
+    "title": "Passing of the Prophet ﷺ",
+    "description": "Muhammad ﷺ passed away in Medina.",
+    "importance": "major"
+  }
+]
