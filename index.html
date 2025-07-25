@@ -14,7 +14,7 @@
     }
     svg {
       width: 100%;
-      height: 600px;
+      height: 700px;
     }
     .event-circle {
       cursor: pointer;
@@ -39,6 +39,10 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
+    .line {
+      stroke: #bbb;
+      stroke-dasharray: 4;
+    }
   </style>
 </head>
 <body>
@@ -47,7 +51,7 @@
 
   <script>
     const svg = d3.select("svg");
-    const margin = { top: 60, right: 50, bottom: 80, left: 50 };
+    const margin = { top: 80, right: 50, bottom: 80, left: 50 };
     const width = +svg.node().getBoundingClientRect().width - margin.left - margin.right;
     const height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -68,7 +72,19 @@
         .attr("transform", `translate(0,${height / 2})`)
         .call(xAxis);
 
-      // Draw events
+      // Vertical lines
+      g.selectAll("line.event-line")
+        .data(data)
+        .enter()
+        .append("line")
+        .attr("class", "line")
+        .attr("x1", d => x(d.year_ce))
+        .attr("x2", d => x(d.year_ce))
+        .attr("y1", 0)
+        .attr("y2", height)
+        .attr("stroke", "#ccc");
+
+      // Circles
       g.selectAll("circle")
         .data(data)
         .enter()
@@ -80,22 +96,34 @@
         .attr("fill", d => d.importance === "major" ? "#ff5722" : "#607d8b")
         .on("mouseover", function (event, d) {
           tooltip.transition().style("opacity", 1);
-          tooltip.html(`<strong>${d.title}</strong><br/>${d.description}`)
+          tooltip.html(`<strong>${d.title}</strong><br/>${d.description}<br/>CE: ${d.year_ce}${d.year_ah ? " | AH: " + d.year_ah : ""}`)
             .style("left", (event.pageX + 15) + "px")
             .style("top", (event.pageY - 40) + "px");
         })
         .on("mouseout", () => tooltip.transition().style("opacity", 0));
 
-      // Labels
-      g.selectAll("text.label")
+      // CE Labels (top)
+      g.selectAll("text.label-ce")
         .data(data)
         .enter()
         .append("text")
         .attr("class", "label")
         .attr("x", d => x(d.year_ce))
-        .attr("y", d => d.importance === "major" ? height / 2 - 20 : height / 2 + 20)
+        .attr("y", height / 2 - 30)
         .attr("text-anchor", "middle")
-        .text(d => d.importance === "major" ? d.title : "");
+        .text(d => d.year_ce);
+
+      // AH Labels (bottom)
+      g.selectAll("text.label-ah")
+        .data(data.filter(d => d.year_ah))
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("x", d => x(d.year_ce))
+        .attr("y", height / 2 + 40)
+        .attr("text-anchor", "middle")
+        .style("fill", "#888")
+        .text(d => `AH: ${d.year_ah}`);
     });
   </script>
 </body>
