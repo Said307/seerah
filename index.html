@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Seerah Timeline</title>
@@ -9,61 +8,54 @@
       margin: 0;
       font-family: sans-serif;
       background: #f0f0f0;
-    }
+    }.timeline-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  background: white;
+}
 
-    .timeline-container {
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap;
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-      background: white;
-    }
+svg {
+  height: 600px;
+  background: white;
+}
 
-    svg {
-      height: 600px;
-      background: white;
-    }
+.event-circle {
+  cursor: pointer;
+}
 
-    .event-circle {
-      cursor: pointer;
-    }
+.label {
+  font-size: 12px;
+  fill: #333;
+}
 
-    .label {
-      font-size: 12px;
-      fill: #333;
-    }
+.event-card {
+  position: absolute;
+  background: white;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  width: 250px;
+  display: none;
+  pointer-events: none;
+  z-index: 10;
+}
 
-    .event-card {
-      position: absolute;
-      background: white;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      width: 250px;
-      display: none;
-      pointer-events: none;
-      z-index: 10;
-    }
+.line {
+  stroke: #bbb;
+  stroke-dasharray: 4;
+}
 
-    .line {
-      stroke: #bbb;
-      stroke-dasharray: 4;
-    }
   </style>
 </head>
-<body>
-
-<div class="timeline-container">
+<body><div class="timeline-container">
   <svg width="1600" height="600"></svg>
-</div>
-
-<div class="event-card" id="card"></div>
-
-<script>
+</div><div class="event-card" id="card"></div><script>
 const margin = { top: 80, right: 50, bottom: 80, left: 50 };
 const width = 1500;
 const height = 600;
@@ -74,68 +66,72 @@ const g = svg.append("g")
 
 const card = d3.select("#card");
 
-// ✅ Inline data instead of fetch
-const data = [
-  { year_ce: 570, year_ah: null, title: "Birth of Muhammad ﷺ", description: "Born in Mecca during the Year of the Elephant.", importance: "major" },
-  { year_ce: 576, year_ah: null, title: "Death of Amina", description: "Mother passed away.", importance: "minor" },
-  { year_ce: 610, year_ah: null, title: "First Revelation", description: "Angel Jibril reveals the Quran.", importance: "major" },
-  { year_ce: 622, year_ah: 1, title: "Hijrah to Medina", description: "Start of the Islamic calendar.", importance: "major" },
-  { year_ce: 624, year_ah: 2, title: "Battle of Badr", description: "First major battle won.", importance: "major" },
-  { year_ce: 632, year_ah: 11, title: "Passing of Prophet ﷺ", description: "Passed away in Medina.", importance: "major" }
-];
+fetch("seerah_data.json")
+  .then(res => res.json())
+  .then(data => {
+    const years = data.map(d => d.year_ce);
+    const x = d3.scaleLinear()
+      .domain([d3.min(years) - 2, d3.max(years) + 2])
+      .range([0, width]);
 
-const years = data.map(d => d.year_ce);
-const x = d3.scaleLinear()
-  .domain([d3.min(years) - 2, d3.max(years) + 2])
-  .range([0, width]);
+    const xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
 
-const xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
+    g.append("g")
+      .attr("transform", `translate(0,${height / 2})`)
+      .call(xAxis);
 
-g.append("g")
-  .attr("transform", `translate(0,${height / 2})`)
-  .call(xAxis);
+    // Vertical lines
+    g.selectAll("line.event-line")
+      .data(data)
+      .enter()
+      .append("line")
+      .attr("class", "line")
+      .attr("x1", d => x(d.year_ce))
+      .attr("x2", d => x(d.year_ce))
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr("stroke", "#ccc");
 
-// Vertical lines
-g.selectAll("line.event-line")
-  .data(data)
-  .enter()
-  .append("line")
-  .attr("class", "line")
-  .attr("x1", d => x(d.year_ce))
-  .attr("x2", d => x(d.year_ce))
-  .attr("y1", 0)
-  .attr("y2", height)
-  .attr("stroke", "#ccc");
+    // Circles
+    g.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("class", "event-circle")
+      .attr("cx", d => x(d.year_ce))
+      .attr("cy", height / 2)
+      .attr("r", d => d.importance === "major" ? 10 : 5)
+      .attr("fill", d => d.importance === "major" ? "#ff5722" : "#607d8b")
+      .on("mouseover", function (event, d) {
+        card.style("display", "block")
+          .html(`<strong>${d.title}</strong><br/>${d.description}<br/>CE: ${d.year_ce}${d.year_ah ? " | AH: " + d.year_ah : ""}`)
+          .style("left", (event.pageX + 20) + "px")
+          .style("top", (event.pageY - 40) + "px");
+      })
+      .on("mouseout", () => card.style("display", "none"));
 
-// Circles
-g.selectAll("circle")
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("class", "event-circle")
-  .attr("cx", d => x(d.year_ce))
-  .attr("cy", height / 2)
-  .attr("r", d => d.importance === "major" ? 10 : 5)
-  .attr("fill", d => d.importance === "major" ? "#ff5722" : "#607d8b")
-  .on("mouseover", function (event, d) {
-    card.style("display", "block")
-      .html(`<strong>${d.title}</strong><br/>${d.description}<br/>CE: ${d.year_ce}${d.year_ah ? " | AH: " + d.year_ah : ""}`)
-      .style("left", (event.pageX + 20) + "px")
-      .style("top", (event.pageY - 40) + "px");
-  })
-  .on("mouseout", () => card.style("display", "none"));
+    // Major event CE labels (top)
+    g.selectAll("text.label-ce")
+      .data(data.filter(d => d.importance === "major"))
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("x", d => x(d.year_ce))
+      .attr("y", height / 2 - 30)
+      .attr("text-anchor", "middle")
+      .text(d => d.title);
 
-// Major labels
-g.selectAll("text.label-ce")
-  .data(data.filter(d => d.importance === "major"))
-  .enter()
-  .append("text")
-  .attr("class", "label")
-  .attr("x", d => x(d.year_ce))
-  .attr("y", height / 2 - 30)
-  .attr("text-anchor", "middle")
-  .text(d => d.title);
-</script>
-
-</body>
+    // AH labels (bottom, if present)
+    g.selectAll("text.label-ah")
+      .data(data.filter(d => d.importance === "major" && d.year_ah))
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("x", d => x(d.year_ce))
+      .attr("y", height / 2 + 40)
+      .attr("text-anchor", "middle")
+      .style("fill", "#888")
+      .text(d => `AH: ${d.year_ah}`);
+  });
+</script></body>
 </html>
