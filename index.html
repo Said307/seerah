@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Seerah Timeline (Scrollable + Labeled)</title>
+  <title>Seerah Timeline</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
     body {
@@ -20,11 +20,11 @@
       display: flex;
       align-items: center;
       background: white;
-      border-top: 1px solid #ccc;
     }
 
     svg {
       height: 600px;
+      background: white;
     }
 
     .event-circle {
@@ -65,7 +65,7 @@
 
 <script>
 const margin = { top: 80, right: 50, bottom: 80, left: 50 };
-const width = 1500; // reduced for closer spacing
+const width = 1500;
 const height = 600;
 
 const svg = d3.select("svg");
@@ -74,61 +74,67 @@ const g = svg.append("g")
 
 const card = d3.select("#card");
 
-fetch("seerah_data.json")
-  .then(res => res.json())
-  .then(data => {
-    const years = data.map(d => d.year_ce);
-    const x = d3.scaleLinear()
-      .domain([d3.min(years) - 2, d3.max(years) + 2])
-      .range([0, width]);
+// ✅ Inline data instead of fetch
+const data = [
+  { year_ce: 570, year_ah: null, title: "Birth of Muhammad ﷺ", description: "Born in Mecca during the Year of the Elephant.", importance: "major" },
+  { year_ce: 576, year_ah: null, title: "Death of Amina", description: "Mother passed away.", importance: "minor" },
+  { year_ce: 610, year_ah: null, title: "First Revelation", description: "Angel Jibril reveals the Quran.", importance: "major" },
+  { year_ce: 622, year_ah: 1, title: "Hijrah to Medina", description: "Start of the Islamic calendar.", importance: "major" },
+  { year_ce: 624, year_ah: 2, title: "Battle of Badr", description: "First major battle won.", importance: "major" },
+  { year_ce: 632, year_ah: 11, title: "Passing of Prophet ﷺ", description: "Passed away in Medina.", importance: "major" }
+];
 
-    const xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
+const years = data.map(d => d.year_ce);
+const x = d3.scaleLinear()
+  .domain([d3.min(years) - 2, d3.max(years) + 2])
+  .range([0, width]);
 
-    g.append("g")
-      .attr("transform", `translate(0,${height / 2})`)
-      .call(xAxis);
+const xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
 
-    // Vertical lines
-    g.selectAll("line.event-line")
-      .data(data)
-      .enter()
-      .append("line")
-      .attr("class", "line")
-      .attr("x1", d => x(d.year_ce))
-      .attr("x2", d => x(d.year_ce))
-      .attr("y1", 0)
-      .attr("y2", height)
-      .attr("stroke", "#ccc");
+g.append("g")
+  .attr("transform", `translate(0,${height / 2})`)
+  .call(xAxis);
 
-    // Circles
-    g.selectAll("circle")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("class", "event-circle")
-      .attr("cx", d => x(d.year_ce))
-      .attr("cy", height / 2)
-      .attr("r", d => d.importance === "major" ? 10 : 5)
-      .attr("fill", d => d.importance === "major" ? "#ff5722" : "#607d8b")
-      .on("mouseover", function (event, d) {
-        card.style("display", "block")
-          .html(`<strong>${d.title}</strong><br/>${d.description}<br/>CE: ${d.year_ce}${d.year_ah ? " | AH: " + d.year_ah : ""}`)
-          .style("left", (event.pageX + 20) + "px")
-          .style("top", (event.pageY - 40) + "px");
-      })
-      .on("mouseout", () => card.style("display", "none"));
+// Vertical lines
+g.selectAll("line.event-line")
+  .data(data)
+  .enter()
+  .append("line")
+  .attr("class", "line")
+  .attr("x1", d => x(d.year_ce))
+  .attr("x2", d => x(d.year_ce))
+  .attr("y1", 0)
+  .attr("y2", height)
+  .attr("stroke", "#ccc");
 
-    // CE labels (only for major events)
-    g.selectAll("text.label-ce")
-      .data(data.filter(d => d.importance === \"major\"))
-      .enter()
-      .append("text")
-      .attr("class", "label")
-      .attr("x", d => x(d.year_ce))
-      .attr("y", height / 2 - 30)
-      .attr("text-anchor", "middle")
-      .text(d => d.title);
-  });
+// Circles
+g.selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+  .attr("class", "event-circle")
+  .attr("cx", d => x(d.year_ce))
+  .attr("cy", height / 2)
+  .attr("r", d => d.importance === "major" ? 10 : 5)
+  .attr("fill", d => d.importance === "major" ? "#ff5722" : "#607d8b")
+  .on("mouseover", function (event, d) {
+    card.style("display", "block")
+      .html(`<strong>${d.title}</strong><br/>${d.description}<br/>CE: ${d.year_ce}${d.year_ah ? " | AH: " + d.year_ah : ""}`)
+      .style("left", (event.pageX + 20) + "px")
+      .style("top", (event.pageY - 40) + "px");
+  })
+  .on("mouseout", () => card.style("display", "none"));
+
+// Major labels
+g.selectAll("text.label-ce")
+  .data(data.filter(d => d.importance === "major"))
+  .enter()
+  .append("text")
+  .attr("class", "label")
+  .attr("x", d => x(d.year_ce))
+  .attr("y", height / 2 - 30)
+  .attr("text-anchor", "middle")
+  .text(d => d.title);
 </script>
 
 </body>
